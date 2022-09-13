@@ -1,0 +1,20 @@
+{
+    "name": "Selling bot v3",
+    "description": "List in more place",
+    "version": "3.0",
+    "manifest_version": 3,
+    "icons": {
+        "16": "/images/icons/icon-automation.png",
+        "32": "/images/icons/icon-automation.png",
+        "48": "/images/icons/icon-automation.png",
+        "128": "/images/icons/icon-automation.png"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://www.facebook.com/marketplace/you/selling"],
+            "js": ["contentScript.js"],
+            "css": ["contentStyle.css"],
+            "run_at": "document_end"
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+._menu-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+._menu-item:hover {
+    background-color: #d9d9d9;
+}
+
+._menu-item__icon {
+    padding: 0 15px;
+    border-right: 5px solid rgb(24, 118, 242);
+}
+
+._menu-item__icon > i {
+    font-size: 20px;
+    padding: 5px;
+    border: 5px solid rgb(24, 118, 242);
+    border-radius: 50%;
+}
+
+._menu-item__msg {
+    padding: 10px 20px;
+}
