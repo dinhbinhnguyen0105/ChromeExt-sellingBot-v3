@@ -8,23 +8,32 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    margin: 0 8px;
+    padding: 8px;
 }
 ._menu-item:hover {
-    background-color: #d9d9d9;
+    background-color: rgba(217, 217, 217, 0.427);
+    border-radius: 2px;
 }
 
 ._menu-item__icon {
-    padding: 0 15px;
-    border-right: 5px solid rgb(24, 118, 242);
+    margin-right: 12px;
 }
 
 ._menu-item__icon > i {
     font-size: 20px;
-    padding: 5px;
-    border: 5px solid rgb(24, 118, 242);
-    border-radius: 50%;
 }
 
+
 ._menu-item__msg {
-    padding: 10px 20px;
+    flex: 1;
+    font-size: 0.9375rem;
+    line-height: 20px;
+    font-weight: 600;
+    color: #050505;
+}
+
+._menu-item__msg > p {
+    margin: 0;
+    padding: 0;
 }

@@ -32,7 +32,7 @@ document.addEventListener('click', async (e) => {
             <i class="fa-solid fa-wand-sparkles"></i>
         </div>
         <div class="_menu-item__msg">
-            <h1>Selling bot</h1>
+            <p>Selling bot</p>
         </div>
         `;
         menuItemElm.parentElement.appendChild(menuItemSelling);
@@ -41,12 +41,13 @@ document.addEventListener('click', async (e) => {
 
 document.addEventListener('click', async (e) => {
     if (e.target.closest('#menuItemSelling')) {
-        handleSelling();
+        await handleSelling();
     }
 });
 
 async function handleSelling() {
     let groupTotal = await handleGetGroups();
+    let count;
     await sleep(200);
     while (groupTotal > 0) {
         if (groupTotal % 20 > 0) {
@@ -54,7 +55,7 @@ async function handleSelling() {
             groupTotal -= groupTotal % 20;
         }
         let even = groupTotal / 20;
-        await sleep(300);
+        await sleep(200);
         if (even > 0) {
             await handleClickGroup(groupTotal, groupTotal - 20);
             groupTotal -= 20;
@@ -70,10 +71,16 @@ async function handleClickGroup(startGroup, endGroup) {
         DATAVISUAL_SELECTOR,
     );
     for (let i = startGroup - 1; i >= endGroup; i--) {
-        dataVisualcompletionElms[i].querySelector('div[role="button"]').click();
-        await sleep(100);
+        const groupElm =
+            dataVisualcompletionElms[i].querySelector('div[role="button"]');
+        if (groupElm) {
+            groupElm.scrollIntoView();
+            groupElm.click();
+            await sleep(100);
+        }
     }
     await handlePost(dialogElm);
+    // await sleep(200);
 }
 
 async function handleOpenDialog() {
