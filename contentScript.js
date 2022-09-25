@@ -47,23 +47,30 @@ document.addEventListener('click', async (e) => {
 
 async function handleSelling() {
     let groupTotal = await handleGetGroups();
-    let count;
+    const groupsPrev = [];
     await sleep(200);
     while (groupTotal > 0) {
         if (groupTotal % 20 > 0) {
-            await handleClickGroup(groupTotal, groupTotal - (groupTotal % 20));
+            await handleClickGroup(
+                groupTotal,
+                groupTotal - (groupTotal % 20),
+                groupsPrev,
+            );
             groupTotal -= groupTotal % 20;
+            console.log(groupsPrev);
+            await sleep(3000);
         }
         let even = groupTotal / 20;
-        await sleep(200);
         if (even > 0) {
-            await handleClickGroup(groupTotal, groupTotal - 20);
+            await handleClickGroup(groupTotal, groupTotal - 20, groupsPrev);
             groupTotal -= 20;
+            console.log(groupsPrev);
+            await sleep(3000);
         }
     }
 }
 
-async function handleClickGroup(startGroup, endGroup) {
+async function handleClickGroup(startGroup, endGroup, groupsPrev) {
     const dialogElm = await handleOpenDialog();
 
     const dataVisualcompletionElms = await waitForAllChildElm(
@@ -74,14 +81,20 @@ async function handleClickGroup(startGroup, endGroup) {
         const groupElm =
             dataVisualcompletionElms[i].querySelector('div[role="button"]');
         if (groupElm) {
-            console.log(dataVisualcompletionElms[i].innerText);
+            if (groupsPrev.includes(dataVisualcompletionElms[i].innerText)) {
+                console.log(
+                    'Duplicate: ',
+                    dataVisualcompletionElms[i].innerText,
+                );
+                continue;
+            }
+            groupsPrev.push(dataVisualcompletionElms[i].innerText);
             groupElm.scrollIntoView();
             groupElm.click();
             await sleep(100);
         }
     }
     await handlePost(dialogElm);
-    // await sleep(200);
 }
 
 async function handleOpenDialog() {
