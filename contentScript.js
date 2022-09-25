@@ -1,6 +1,6 @@
 console.log('Content script start ');
 
-const EXTEND_SELECTOR = 'div[aria-label="Khác"]';
+const EXTEND_SELECTOR = 'div[aria-label="Xem thêm"';
 const MENU_SELECTOR = 'div[role="menu"]';
 const MENU_ITEM_SELECTOR = 'div[role="menuitem"]';
 
@@ -74,6 +74,7 @@ async function handleClickGroup(startGroup, endGroup) {
         const groupElm =
             dataVisualcompletionElms[i].querySelector('div[role="button"]');
         if (groupElm) {
+            console.log(dataVisualcompletionElms[i].innerText);
             groupElm.scrollIntoView();
             groupElm.click();
             await sleep(100);
